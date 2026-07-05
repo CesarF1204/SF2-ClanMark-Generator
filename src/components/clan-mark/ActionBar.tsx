@@ -42,11 +42,12 @@ export const ActionBar = memo(function ActionBar({
         type="button"
         onClick={handleDownload}
         disabled={!hasSelection || isExporting}
+        title={!hasSelection && !isExporting ? 'No selected image' : undefined}
         className={[
-          'w-full rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer',
+          'w-full rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-200',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]',
           hasSelection && !isExporting
-            ? 'bg-[var(--accent)] text-black hover:bg-[var(--accent-hover)] hover:shadow-lg hover:shadow-[var(--accent)]/30'
+            ? 'cursor-pointer bg-[var(--accent)] text-black hover:bg-[var(--accent-hover)] hover:shadow-lg hover:shadow-[var(--accent)]/30'
             : 'cursor-not-allowed bg-[var(--surface-elevated)] text-[var(--muted)]',
         ].join(' ')}
       >
