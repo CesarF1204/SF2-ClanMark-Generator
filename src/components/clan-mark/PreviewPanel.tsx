@@ -67,10 +67,12 @@ export const PreviewPanel = memo(function PreviewPanel({
 
 interface SelectionInfoProps {
   selection: FullSelection
+  onDeselectStage?: (stage: LayerStage) => void
 }
 
 export const SelectionInfo = memo(function SelectionInfo({
   selection,
+  onDeselectStage,
 }: SelectionInfoProps) {
   const stages: LayerStage[] = ['background', 'middle', 'foreground']
 
@@ -84,15 +86,36 @@ export const SelectionInfo = memo(function SelectionInfo({
         return (
           <div key={stage} className="flex items-center justify-between gap-2 text-xs">
             <span className="text-[var(--muted)]">{label}</span>
-            <span
-              className={[
-                'truncate font-medium',
-                asset ? 'text-[var(--text)]' : 'text-[var(--muted)]/50 italic',
-              ].join(' ')}
-              title={asset ? formatAssetName(asset.filename) : undefined}
-            >
-              {asset ? formatAssetName(asset.filename) : 'None'}
-            </span>
+            {asset && onDeselectStage ? (
+              <div className="flex items-center gap-1 min-w-0">
+                <span
+                  className="truncate font-medium text-[var(--text)]"
+                  title={formatAssetName(asset.filename)}
+                >
+                  {formatAssetName(asset.filename)}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => onDeselectStage(stage)}
+                  className="inline-flex shrink-0 items-center justify-center rounded-md p-1 text-[var(--muted)] transition-colors hover:bg-red-500/15 hover:text-red-400 active:bg-red-500/25"
+                  aria-label={`Remove ${label} selection`}
+                  title={`Clear ${label}`}
+                >
+                  <svg
+                    className="h-4 w-4"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M4.646 4.646a.5.5 0 01.708 0L8 7.293l2.646-2.647a.5.5 0 01.708.708L8.707 8l2.647 2.646a.5.5 0 01-.708.708L8 8.707l-2.646 2.647a.5.5 0 01-.708-.708L7.293 8 4.646 5.354a.5.5 0 010-.708z" />
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <span className="truncate font-medium text-[var(--muted)]/50 italic">
+                None
+              </span>
+            )}
           </div>
         )
       })}

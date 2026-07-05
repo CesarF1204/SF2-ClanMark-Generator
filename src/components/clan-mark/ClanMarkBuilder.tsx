@@ -45,7 +45,10 @@ export function ClanMarkBuilder() {
             Live Preview
           </h2>
           <PreviewPanel layerUrls={layerUrls} isComplete={isComplete} />
-          <SelectionInfo selection={selection} />
+          <SelectionInfo
+            selection={selection}
+            onDeselectStage={deselectStage}
+          />
           <ActionBar
             layerUrls={layerUrls}
             hasSelection={hasSelection}
