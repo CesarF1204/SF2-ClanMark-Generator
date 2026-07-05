@@ -39,8 +39,8 @@ export function ClanMarkBuilder() {
         ))}
       </div>
 
-      <aside className="lg:sticky lg:top-8 lg:self-start">
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)]/80 p-6 backdrop-blur-sm">
+      <aside className="lg:sticky lg:top-8 lg:self-start flex justify-center w-full">
+        <div className="w-full max-w-[320px] rounded-2xl border border-[var(--border)] bg-[var(--surface)]/80 p-6 backdrop-blur-sm">
           <h2 className="mb-4 text-center text-sm font-semibold uppercase tracking-widest text-[var(--muted)]">
             Live Preview
           </h2>

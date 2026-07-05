@@ -4,8 +4,8 @@ import type { AssetItem, FullSelection, LayerStage, StageCategories } from '../t
 type SelectionAction =
   | { type: 'SELECT_CATEGORY'; stage: LayerStage; categoryId: string }
   | { type: 'SELECT_ASSET'; stage: LayerStage; asset: AssetItem }
-  | { type: 'DESELECT_STAGE'; stage: LayerStage }
-  | { type: 'RESET' }
+  | { type: 'DESELECT_ASSET'; stage: LayerStage }
+  | { type: 'RESET'; categories: StageCategories }
   | {
       type: 'RANDOMIZE'
       categories: StageCategories
@@ -16,15 +16,21 @@ interface StageSelectionState {
   selectedAsset: AssetItem | null
 }
 
-const initialStageState: StageSelectionState = {
-  selectedCategoryId: null,
-  selectedAsset: null,
+function getInitialStageState(categories: StageCategories, stage: LayerStage): StageSelectionState {
+  const stageCategories = categories[stage]
+  // Select first category if available, otherwise null
+  return {
+    selectedCategoryId: stageCategories.length > 0 ? stageCategories[0].id : null,
+    selectedAsset: null,
+  }
 }
 
-const initialSelection: FullSelection = {
-  background: { ...initialStageState },
-  middle: { ...initialStageState },
-  foreground: { ...initialStageState },
+function getInitialSelection(categories: StageCategories): FullSelection {
+  return {
+    background: getInitialStageState(categories, 'background'),
+    middle: getInitialStageState(categories, 'middle'),
+    foreground: getInitialStageState(categories, 'foreground'),
+  }
 }
 
 function selectionReducer(
@@ -36,8 +42,8 @@ function selectionReducer(
       return {
         ...state,
         [action.stage]: {
+          ...state[action.stage],
           selectedCategoryId: action.categoryId,
-          selectedAsset: null, // Reset asset when category changes
         },
       }
     case 'SELECT_ASSET':
@@ -48,16 +54,17 @@ function selectionReducer(
           selectedAsset: action.asset,
         },
       }
-    case 'DESELECT_STAGE':
+    case 'DESELECT_ASSET':
+      // Deselect asset but keep current category
       return {
         ...state,
         [action.stage]: {
-          selectedCategoryId: null,
+          ...state[action.stage],
           selectedAsset: null,
         },
       }
     case 'RESET':
-      return initialSelection
+      return getInitialSelection(action.categories)
     case 'RANDOMIZE': {
       const { categories } = action
       const randomSelection: FullSelection = {} as FullSelection
@@ -65,7 +72,7 @@ function selectionReducer(
       for (const stage of ['background', 'middle', 'foreground'] as LayerStage[]) {
         const stageCategories = categories[stage]
         if (stageCategories.length === 0) {
-          randomSelection[stage] = { ...initialStageState }
+          randomSelection[stage] = { ...getInitialStageState(categories, stage) }
         } else {
           const randomCategory = stageCategories[Math.floor(Math.random() * stageCategories.length)]
           const assets = randomCategory.assets
@@ -86,7 +93,10 @@ function selectionReducer(
 }
 
 export function useClanMarkState(categories: StageCategories) {
-  const [selection, dispatch] = useReducer(selectionReducer, initialSelection)
+  const [selection, dispatch] = useReducer(
+    selectionReducer,
+    getInitialSelection(categories)
+  )
 
   const selectCategory = useCallback((stage: LayerStage, categoryId: string) => {
     dispatch({ type: 'SELECT_CATEGORY', stage, categoryId })
@@ -97,12 +107,12 @@ export function useClanMarkState(categories: StageCategories) {
   }, [])
 
   const deselectStage = useCallback((stage: LayerStage) => {
-    dispatch({ type: 'DESELECT_STAGE', stage })
+    dispatch({ type: 'DESELECT_ASSET', stage })
   }, [])
 
   const reset = useCallback(() => {
-    dispatch({ type: 'RESET' })
-  }, [])
+    dispatch({ type: 'RESET', categories })
+  }, [categories])
 
   const randomize = useCallback(() => {
     dispatch({ type: 'RANDOMIZE', categories })

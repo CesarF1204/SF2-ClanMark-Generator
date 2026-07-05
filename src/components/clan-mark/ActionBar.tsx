@@ -43,7 +43,7 @@ export const ActionBar = memo(function ActionBar({
         onClick={handleDownload}
         disabled={!hasSelection || isExporting}
         className={[
-          'w-full rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-200',
+          'w-full rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]',
           hasSelection && !isExporting
             ? 'bg-[var(--accent)] text-black hover:bg-[var(--accent-hover)] hover:shadow-lg hover:shadow-[var(--accent)]/30'
@@ -57,14 +57,14 @@ export const ActionBar = memo(function ActionBar({
         <button
           type="button"
           onClick={onRandomize}
-          className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-[var(--text)] transition-all hover:border-[var(--accent)]/50 hover:bg-[var(--surface-elevated)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+          className="cursor-pointer rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-[var(--text)] transition-all hover:border-[var(--accent)]/50 hover:bg-[var(--surface-elevated)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
         >
           Randomize
         </button>
         <button
           type="button"
           onClick={onReset}
-          className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-[var(--text)] transition-all hover:border-red-500/50 hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+          className="cursor-pointer rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-[var(--text)] transition-all hover:border-red-500/50 hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
         >
           Reset
         </button>

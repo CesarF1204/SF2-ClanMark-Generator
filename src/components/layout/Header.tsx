@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useTheme } from '../../hooks/useTheme'
 
 export function Header() {
@@ -6,12 +7,12 @@ export function Header() {
   return (
     <header className="border-b border-[var(--border)] bg-[var(--surface)]/60 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg">
+        <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg">
             <img
               src="/sf2_reborn_logo.png"
               alt="SF2 Reborn Logo"
-              className="w-8 h-8 object-contain"
+              className="w-12 h-12 object-contain"
             />
           </div>
           <div>
@@ -22,13 +23,13 @@ export function Header() {
               Special Force 2 — Build your clan emblem
             </p>
           </div>
-        </div>
+        </Link>
 
         <button
           type="button"
           onClick={toggleTheme}
           aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2.5 text-[var(--text)] transition-colors hover:border-[var(--accent)]/50 hover:bg-[var(--surface-elevated)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+          className="cursor-pointer rounded-lg border border-[var(--border)] bg-[var(--surface)] p-2.5 text-[var(--text)] transition-colors hover:border-[var(--accent)]/50 hover:bg-[var(--surface-elevated)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
         >
           {theme === 'dark' ? (
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

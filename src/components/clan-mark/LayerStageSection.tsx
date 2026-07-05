@@ -56,7 +56,6 @@ export const LayerStageSection = memo(function LayerStageSection({
           categories={categories}
           selectedCategoryId={stageState.selectedCategoryId}
           onSelectCategory={onSelectCategory}
-          onDeselect={onDeselect}
         />
       </div>
 
@@ -70,6 +69,7 @@ export const LayerStageSection = memo(function LayerStageSection({
             assets={currentAssets}
             selectedId={stageState.selectedAsset?.id ?? null}
             onSelect={onSelectAsset}
+            onDeselect={onDeselect}
           />
         </div>
       )}

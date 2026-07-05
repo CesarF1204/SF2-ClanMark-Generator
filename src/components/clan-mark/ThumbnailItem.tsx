@@ -6,16 +6,22 @@ interface ThumbnailItemProps {
   asset: AssetItem
   isSelected: boolean
   onSelect: (asset: AssetItem) => void
+  onDeselect?: () => void
 }
 
 export const ThumbnailItem = memo(function ThumbnailItem({
   asset,
   isSelected,
   onSelect,
+  onDeselect,
 }: ThumbnailItemProps) {
   const handleClick = useCallback(() => {
-    onSelect(asset)
-  }, [asset, onSelect])
+    if (isSelected && onDeselect) {
+      onDeselect()
+    } else {
+      onSelect(asset)
+    }
+  }, [asset, isSelected, onSelect, onDeselect])
 
   return (
     <button
@@ -24,7 +30,7 @@ export const ThumbnailItem = memo(function ThumbnailItem({
       title={formatAssetName(asset.filename)}
       aria-pressed={isSelected}
       className={[
-        'group relative aspect-square overflow-hidden rounded-lg border-2 transition-all duration-200',
+        'group relative aspect-square overflow-hidden rounded-lg border-2 transition-all duration-200 cursor-pointer',
         'bg-[var(--surface)] hover:scale-[1.03] hover:shadow-lg hover:shadow-[var(--accent)]/10',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]',
         isSelected

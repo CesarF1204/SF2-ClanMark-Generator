@@ -5,12 +5,14 @@ interface ThumbnailGridProps {
   assets: AssetItem[]
   selectedId: string | null
   onSelect: (asset: AssetItem) => void
+  onDeselect?: () => void
 }
 
 export function ThumbnailGrid({
   assets,
   selectedId,
   onSelect,
+  onDeselect,
 }: ThumbnailGridProps) {
   if (assets.length === 0) {
     return (
@@ -30,6 +32,7 @@ export function ThumbnailGrid({
           asset={asset}
           isSelected={selectedId === asset.id}
           onSelect={onSelect}
+          onDeselect={onDeselect}
         />
       ))}
     </div>
