@@ -5,7 +5,7 @@ export function Header() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <header className="border-b border-[var(--border)] bg-[var(--surface)]/60 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--surface)]/60 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <div className="flex h-12 w-12 items-center justify-center rounded-lg">
