@@ -1,32 +1,67 @@
-# React + TypeScript + Vite
+# SF2 Clan Mark Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A web application for creating and customizing **Special Force 2** clan marks (emblems). Built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **3-Layer Composition** — Build your clan mark by selecting assets across three layers:
+  - **Logo** (background) — The main emblem or symbol
+  - **Pattern** (middle) — A decorative pattern overlay
+  - **Overlay** (foreground) — A foreground accent element
+- **Live Preview** — See your clan mark update in real time as you make selections
+- **Download as PNG** — Export your completed clan mark as a high-quality PNG image
+- **Randomize** — Quickly generate a random combination of assets
+- **Reset** — Clear all selections and start over
+- **Dark / Light Theme** — Toggle between dark and light mode
 
-## React Compiler
+## Usage
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Select a layer** — For each of the three stages (Logo, Pattern, Overlay), choose a category and then pick an asset from that category.
+2. **Preview** — The live preview panel updates automatically as you select assets. A checkmark indicator shows when all three layers are filled.
+3. **Download** — Once all layers are selected, click the **Download Clan Mark** button to export the composite image as a PNG file.
+4. **Randomize** — Click the **Randomize** button to instantly fill all layers with randomly chosen assets.
+5. **Reset** — Click the **Reset** button to clear all selections and start from scratch.
+6. **Theme** — Use the sun/moon icon in the header to switch between light and dark mode.
 
-## Expanding the Oxlint configuration
+## Development
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+### Prerequisites
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+- Node.js 18+
+- npm
+
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Build
+
+```bash
+npm run build
+```
+
+The production build will be output to the `dist/` directory.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Tech Stack
+
+- **React 19** — UI framework
+- **TypeScript** — Type safety
+- **Vite** — Build tool and dev server
+- **Tailwind CSS** — Utility-first styling
+- **Oxlint** — Linting
+
+## License
+
+This project is for educational and entertainment purposes. Special Force 2 is a trademark of its respective owners.
